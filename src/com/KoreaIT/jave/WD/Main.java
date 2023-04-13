@@ -1,6 +1,10 @@
 package com.KoreaIT.jave.WD;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import com.KoreaIT.jave.WD.dto.Article;
 
 public class Main {
 	public static void main(String[] args) {
@@ -8,15 +12,45 @@ public class Main {
 		System.out.println("==프로그램 시작==");
 		
 		Scanner sc = new Scanner(System.in);
+		List<Article> articles = new ArrayList<>();
 		
-
+		int lastArticleId = 0;
+		
+		
 		while(true) {
-			System.out.printf("명령어)");
+			System.out.printf("명령어 : ");
 			String cmd = sc.nextLine();
 
 			if(cmd.equals("exit")) {
 				break;
 			}
+			
+			if(cmd.equals("article write")) {
+				
+				int id = lastArticleId +1;
+				lastArticleId = id;
+				System.out.printf("제목 : ");
+				String title = sc.nextLine();
+				System.out.printf("내용 : ");
+				String body = sc.nextLine();
+
+				Article article = new Article(id, title, body);
+				
+				articles.add(article);
+				
+				System.out.printf("%d번 글이 생성되었습니다.\n", id);
+				
+			} else if(cmd.equals("article list")) {
+				
+				
+			
+				
+				
+				
+
+			}
+			
+			
 			
 		}
 		
