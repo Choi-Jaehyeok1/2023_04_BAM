@@ -41,12 +41,17 @@ public class Main {
 				System.out.printf("%d번 글이 생성되었습니다.\n", id);
 				
 			} else if(cmd.equals("article list")) {
+				if(articles.size()==0) {
+					System.out.println("존재하는 게시물이 없습니다.");
+					continue;
+				}
 				
-				
+				System.out.println("번호	|	제목	");
+				for(int i = articles.size() -1; i >= 0; i--) {
+					Article article = articles.get(i);
+					System.out.printf("%d	|	%s	\n", article.id, article.title);
+				}
 			
-				
-				
-				
 
 			}
 			
