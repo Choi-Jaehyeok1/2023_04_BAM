@@ -5,26 +5,22 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
-		
 		System.out.println("==프로그램 시작==");
 		
-		String cmd = sc.nextLine();
-//		int cmd = sc.nextInt();
-//		sc.next();
+		Scanner sc = new Scanner(System.in);
 		
-		System.out.println(cmd);
+
+		while(true) {
+			System.out.printf("명령어)");
+			String cmd = sc.nextLine();
+
+			if(cmd.equals("exit")) {
+				break;
+			}
+			
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		sc.close();
 		
 		System.out.println("==프로그램 끝==");
 		
