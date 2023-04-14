@@ -8,17 +8,23 @@ import com.KoreaIT.jave.WD.dto.Article;
 import com.KoreaIT.jave.WD.util.Util;
 
 
-
-
 public class Main {
+	
+	static List<Article> articles = new ArrayList<>();
+	static int lastArticleId = 0;
+	
+	static {
+		articles = new ArrayList<>();
+		lastArticleId = 0;
+	}
 	public static void main(String[] args) {
 
 		System.out.println("==프로그램 시작==");
 
+		makeTestData();
+		
 		Scanner sc = new Scanner(System.in);
-		List<Article> articles = new ArrayList<>();
 
-		int lastArticleId = 0;
 
 		while (true) {
 			System.out.printf("명령어 : ");
@@ -153,4 +159,24 @@ public class Main {
 		System.out.println("==프로그램 끝==");
 
 	}
+	
+	public static void makeTestData(){
+		
+		System.out.println("테스트용 게시물 데이터 5개 생성");
+		
+		for(int i = 1; i<6; i++) {
+			int id = lastArticleId + 1;
+			lastArticleId = id;
+			
+			String title = "제목" + i;
+			String body = "내용" + i;
+			
+			Article article = new Article(id, Util.getDateTime(), title, body);
+			articles.add(article);
+		}
+	}
+	
+	
 }
+
+
