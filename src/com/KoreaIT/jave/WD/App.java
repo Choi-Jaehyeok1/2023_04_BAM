@@ -11,7 +11,7 @@ public class App {
 	private List<Article> articles;
 	private int lastArticleId;
 
-	public App () {
+	public App() {
 		articles = new ArrayList<>();
 		lastArticleId = 0;
 
@@ -68,19 +68,11 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
-
-				for (Article article : articles) {
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 					continue;
-
 				}
 
 				System.out.printf("== 상세 게시물 ==\n");
@@ -95,19 +87,11 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
-
-				for (Article article : articles) {
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 					continue;
-
 				}
 
 				System.out.printf("== 수정 사항 ==\n");
@@ -127,21 +111,12 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
-
-				for (Article article : articles) {
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 					continue;
-
 				}
-
 				articles.remove(foundArticle);
 				System.out.printf("%d번 게시물이 삭제되었습니다.", id);
 
@@ -156,6 +131,16 @@ public class App {
 
 		System.out.println("==프로그램 끝==");
 
+	}
+
+	private Article getArticleById(int id) {
+
+		for (Article article : articles) {
+			if (article.id == id) {
+				return article;
+			}
+		}
+		return null;
 	}
 
 	private void makeTestData() {
@@ -173,4 +158,5 @@ public class App {
 			articles.add(article);
 		}
 	}
+
 }
