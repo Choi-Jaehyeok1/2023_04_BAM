@@ -50,16 +50,40 @@ public class App {
 
 				System.out.printf("%d번 글이 생성되었습니다.\n", id);
 
-			} else if (cmd.equals("article list")) {
+			} else if (cmd.startsWith("article list")) {
+
 				if (articles.size() == 0) {
 					System.out.println("존재하는 게시물이 없습니다.");
 					continue;
 				}
 
+				List<Article> printArticles = articles;
+
+				String serchKeyword = cmd.substring("article list".length()).trim();
+
+				if (serchKeyword.length() > 0) {
+
+					printArticles = new ArrayList<>();
+
+					for (Article article : articles) {
+
+						if (article.title.contains(serchKeyword)) {
+							printArticles.add(article);
+							break;
+						}
+					}
+					
+					if (printArticles.size() == 0) {
+						System.out.println("검색어가 없습니다.");
+						continue;
+					}
+
+				}
+
 				System.out.printf("== 게시물 리스트 ==\n");
 				System.out.println("번호	|	제목	|	등록날짜	");
-				for (int i = articles.size() - 1; i >= 0; i--) {
-					Article article = articles.get(i);
+				for (int i = printArticles.size() - 1; i >= 0; i--) {
+					Article article = printArticles.get(i);
 					System.out.printf("%d	|	%s	|	%s	\n", article.id, article.title, article.regDate);
 				}
 
