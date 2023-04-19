@@ -33,7 +33,7 @@ public class App {
 
 		
 		articleController.makeTestData();
-		memberController.makeTestId();
+		memberController.makeTestData();
 
 		while (true) {
 			System.out.printf("명령어 : ");
@@ -74,11 +74,6 @@ public class App {
 		System.out.println("==프로그램 끝==");
 
 	}
-	
-	
-	
-
-
 	
 	
 }
