@@ -8,6 +8,7 @@ import com.KoreaIT.jave.WD.dto.Article;
 import com.KoreaIT.jave.WD.dto.Member;
 
 import WD.controller.ArticleController;
+import WD.controller.Controller;
 import WD.controller.MemberController;
 
 public class App {
@@ -37,40 +38,35 @@ public class App {
 		while (true) {
 			System.out.printf("명령어 : ");
 			String cmd = sc.nextLine().trim();
-
+			
 			if (cmd.equals("exit")) {
 				break;
 			}
+			String[] cmdBits = cmd.split(" ");
+			
+			if(cmdBits.length == 1) {
+				System.out.println("명령어를 확인해주세요.");
+				continue;
+			}
+			
+			String Keyname = cmdBits[0];
+			String Keyword = cmdBits[1];
 
-			if (cmd.equals("member join")) {
+			Controller controller = null;
+			
+			if(Keyname.equals("member")) {
+				controller = memberController;
 				
-				memberController.doJoin();
-				
-			} else if (cmd.equals("article write")) {
-				
-				articleController.doWrite();
-
-			} else if (cmd.startsWith("article list")) {
-				
-				articleController.showList(cmd);
-
-			} else if (cmd.startsWith("article detail ")) {
-				
-				articleController.showDetail(cmd);
-
-			} else if (cmd.startsWith("article modify ")) {
-				articleController.doModify(cmd);
-
-
-			} else if (cmd.startsWith("article delete ")) {
-
-				articleController.doDelete(cmd);
+			} else if(Keyname.equals("article")){
+				controller = articleController;
 				
 			} else {
 				System.out.println("존재하지 않는 명령어 입니다.");
-
+				continue;
 			}
-
+			
+			controller.doAction(cmd, Keyword);
+			
 		}
 
 		sc.close();

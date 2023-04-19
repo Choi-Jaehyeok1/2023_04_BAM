@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.KoreaIT.jave.WD.dto.Member;
 import com.KoreaIT.jave.WD.util.Util;
 
-public class MemberController {
+public class MemberController extends Controller{
 
 	private List<Member> members;
 	private Scanner sc;
@@ -18,8 +18,26 @@ public class MemberController {
 		this.lastMemberId = 0;
 	
 }
-
-	public void doJoin() {
+	public void doAction (String cmd, String Keyword) {
+		switch(Keyword) {
+		case "join":
+			doJoin();
+			break;
+//		case "login":
+//			doJoin();
+//			break;
+//		case "logout":
+//			doJoin();
+//			break;
+			
+		default :
+			System.out.println("명령어를 확인해주세요.");
+			break;
+		}
+	}
+	
+	
+	private void doJoin() {
 		int id = lastMemberId + 1;
 		lastMemberId = id;
 
