@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.KoreaIT.jave.WD.dto.Article;
 import com.KoreaIT.jave.WD.util.Util;
 
-public class ArticleController extends Controller{
+public class ArticleController extends Controller {
 
 	private List<Article> articles;
 	private Scanner sc;
@@ -19,59 +19,41 @@ public class ArticleController extends Controller{
 		this.sc = sc;
 		this.lastArticleId = 0;
 	}
-	
+
 	public void doAction(String cmd, String Keyword) {
-		
+
 		this.cmd = cmd;
-		
-		switch(Keyword) {
-		
+
+		switch (Keyword) {
+
 		case "write":
-			if(Controller.loginedMember == null) {
-				System.out.println("로그인 후 이용해주세요");
-				return;
-			}
 			doWrite();
 			break;
-			
+
 		case "list":
 			showList();
 			break;
 
 		case "detail":
-			if(Controller.loginedMember == null) {
-				System.out.println("로그인 후 이용해주세요");
-				return;
-			}
 			showDetail();
 			break;
-			
+
 		case "modify":
-			if(Controller.loginedMember == null) {
-				System.out.println("로그인 후 이용해주세요");
-				return;
-			}
 			doModify();
 			break;
-			
+
 		case "delete":
-			if(Controller.loginedMember == null) {
-				System.out.println("로그인 후 이용해주세요");
-				return;
-			}
 			doDelete();
 			break;
-			
-			
-		default :
+
+		default:
 			System.out.println("명령어를 확인해주세요.");
 			break;
 		}
 	}
-	
-	
+
 	private void doWrite() {
-		
+
 		int id = lastArticleId + 1;
 		lastArticleId = id;
 		System.out.printf("== 게시물 작성 ==\n");
@@ -123,7 +105,8 @@ public class ArticleController extends Controller{
 		System.out.println("번호	|	제목	|	등록날짜	|	등록자");
 		for (int i = printArticles.size() - 1; i >= 0; i--) {
 			Article article = printArticles.get(i);
-			System.out.printf("%d	|	%s	|	%s	|	%s	\n", article.id, article.title, article.regDate, article.loginidId);
+			System.out.printf("%d	|	%s	|	%s	|	%s	\n", article.id, article.title, article.regDate,
+					article.loginidId);
 		}
 
 	}
@@ -131,12 +114,12 @@ public class ArticleController extends Controller{
 	private void showDetail() {
 
 		String[] cmdBits = cmd.split(" ");
-		
-		if(cmdBits.length == 2) {
+
+		if (cmdBits.length == 2) {
 			System.out.println("명령어를 확인해주세요");
 			return;
 		}
-		
+
 		int id = Integer.parseInt(cmdBits[2]);
 
 		Article foundArticle = getArticleById(id);
@@ -160,21 +143,21 @@ public class ArticleController extends Controller{
 
 		String[] cmdBits = cmd.split(" ");
 
-		if(cmdBits.length == 2) {
+		if (cmdBits.length == 2) {
 			System.out.println("명령어를 확인해주세요");
 			return;
 		}
-		
+
 		int id = Integer.parseInt(cmdBits[2]);
-		
+
 		Article foundArticle = getArticleById(id);
 
-		if(foundArticle == null) {
+		if (foundArticle == null) {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 			return;
 		}
-		
-		if(foundArticle.loginidId != Controller.loginedMember.id) {
+
+		if (foundArticle.loginidId != Controller.loginedMember.id) {
 			System.out.println("수정 권한을 가지고 있지 않습니다.");
 			return;
 		}
@@ -196,12 +179,12 @@ public class ArticleController extends Controller{
 	private void doDelete() {
 
 		String[] cmdBits = cmd.split(" ");
-		
-		if(cmdBits.length == 2) {
+
+		if (cmdBits.length == 2) {
 			System.out.println("명령어를 확인해주세요");
 			return;
 		}
-		
+
 		int id = Integer.parseInt(cmdBits[2]);
 
 		Article foundArticle = getArticleById(id);
@@ -210,12 +193,12 @@ public class ArticleController extends Controller{
 			System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 			return;
 		}
-		
-		if(foundArticle.loginidId != Controller.loginedMember.id) {
+
+		if (foundArticle.loginidId != Controller.loginedMember.id) {
 			System.out.println("수정 권한을 가지고 있지 않습니다.");
 			return;
 		}
-		
+
 		articles.remove(foundArticle);
 		System.out.printf("%d번 게시물이 삭제되었습니다.", id);
 
@@ -247,6 +230,5 @@ public class ArticleController extends Controller{
 			articles.add(article);
 		}
 	}
-
 
 }
