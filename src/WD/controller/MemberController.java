@@ -11,7 +11,6 @@ public class MemberController extends Controller{
 	private List<Member> members;
 	private Scanner sc;
 	private int lastMemberId;
-	private Member loginedMember;
 	
 	
 	public MemberController(List<Member> members, Scanner sc) {
@@ -37,12 +36,14 @@ public class MemberController extends Controller{
 			System.out.println("명령어를 확인해주세요.");
 			break;
 		}
+		
+
 	}
 	
 	
 	private void doJoin() {
 		
-		if(loginedMember != null) {
+		if(Controller.loginedMember != null) {
 			System.out.println("로그아웃 후 이용해주세요");
 			return;
 		}
@@ -101,7 +102,7 @@ public class MemberController extends Controller{
 	
 	private void doLogin() {
 		
-		if(loginedMember != null) {
+		if(Controller.loginedMember != null) {
 			System.out.println("로그아웃 후 이용해주세요");
 			return;
 		}
@@ -123,21 +124,22 @@ public class MemberController extends Controller{
 			return;
 		}
 		
-		loginedMember = member;
 		
+		Controller.loginedMember = member;
+
 		
-		System.out.printf("%s님 환영합니다.\n", loginedMember.loginId);
+		System.out.printf("%s님 환영합니다.\n", Controller.loginedMember.loginId);
 		
 	}
 	
 	private void doLogout() {
 		
-		if(loginedMember == null) {
+		if(Controller.loginedMember == null) {
 			System.out.println("로그인 중이 아닙니다.");
 			return;
 		}
 		
-		loginedMember = null;
+		Controller.loginedMember = null;
 		
 		System.out.println("로그아웃 되었습니다.");
 
