@@ -23,12 +23,26 @@ public class MemberController extends Controller{
 	public void doAction (String cmd, String Keyword) {
 		switch(Keyword) {
 		case "join":
+			if(Controller.loginedMember != null) {
+				System.out.println("로그아웃 후 이용해주세요");
+				return;
+			}
 			doJoin();
 			break;
+			
 		case "login":
+			if(Controller.loginedMember != null) {
+				System.out.println("로그아웃 후 이용해주세요");
+				return;
+			}
 			doLogin();
 			break;
+			
 		case "logout":
+			if(Controller.loginedMember == null) {
+				System.out.println("로그인 중이 아닙니다.");
+				return;
+			}
 			doLogout();
 			break;
 			
@@ -42,11 +56,6 @@ public class MemberController extends Controller{
 	
 	
 	private void doJoin() {
-		
-		if(Controller.loginedMember != null) {
-			System.out.println("로그아웃 후 이용해주세요");
-			return;
-		}
 		
 		int id = lastMemberId + 1;
 		lastMemberId = id;
@@ -101,11 +110,6 @@ public class MemberController extends Controller{
 	}
 	
 	private void doLogin() {
-		
-		if(Controller.loginedMember != null) {
-			System.out.println("로그아웃 후 이용해주세요");
-			return;
-		}
 
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
@@ -133,11 +137,6 @@ public class MemberController extends Controller{
 	}
 	
 	private void doLogout() {
-		
-		if(Controller.loginedMember == null) {
-			System.out.println("로그인 중이 아닙니다.");
-			return;
-		}
 		
 		Controller.loginedMember = null;
 		

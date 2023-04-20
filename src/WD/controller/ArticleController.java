@@ -25,19 +25,40 @@ public class ArticleController extends Controller{
 		this.cmd = cmd;
 		
 		switch(Keyword) {
+		
 		case "write":
+			if(Controller.loginedMember == null) {
+				System.out.println("로그인 후 이용해주세요");
+				return;
+			}
 			doWrite();
 			break;
+			
 		case "list":
 			showList();
 			break;
+
 		case "detail":
+			if(Controller.loginedMember == null) {
+				System.out.println("로그인 후 이용해주세요");
+				return;
+			}
 			showDetail();
 			break;
+			
 		case "modify":
+			if(Controller.loginedMember == null) {
+				System.out.println("로그인 후 이용해주세요");
+				return;
+			}
 			doModify();
 			break;
+			
 		case "delete":
+			if(Controller.loginedMember == null) {
+				System.out.println("로그인 후 이용해주세요");
+				return;
+			}
 			doDelete();
 			break;
 			
@@ -50,11 +71,6 @@ public class ArticleController extends Controller{
 	
 	
 	private void doWrite() {
-		
-		if(Controller.loginedMember == null) {
-			System.out.println("로그인 후 이용해주세요");
-			return;
-		}
 		
 		int id = lastArticleId + 1;
 		lastArticleId = id;
@@ -135,16 +151,12 @@ public class ArticleController extends Controller{
 		System.out.printf("작성일 : %s\n", foundArticle.regDate);
 		System.out.printf("제 목  : %s\n", foundArticle.title);
 		System.out.printf("내 용  : %s\n", foundArticle.body);
+		System.out.printf("작성자 : %d\n", foundArticle.loginidId);
 		System.out.printf("==== E N D ====\n");
 
 	}
 
 	private void doModify() {
-		
-		if(Controller.loginedMember != null) {
-			System.out.println("로그아웃 후 이용해주세요");
-			return;
-		}
 
 		String[] cmdBits = cmd.split(" ");
 
@@ -157,8 +169,13 @@ public class ArticleController extends Controller{
 		
 		Article foundArticle = getArticleById(id);
 
-		if (foundArticle == null) {
+		if(foundArticle == null) {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
+			return;
+		}
+		
+		if(foundArticle.loginidId != Controller.loginedMember.id) {
+			System.out.println("수정 권한을 가지고 있지 않습니다.");
 			return;
 		}
 
@@ -193,6 +210,12 @@ public class ArticleController extends Controller{
 			System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 			return;
 		}
+		
+		if(foundArticle.loginidId != Controller.loginedMember.id) {
+			System.out.println("수정 권한을 가지고 있지 않습니다.");
+			return;
+		}
+		
 		articles.remove(foundArticle);
 		System.out.printf("%d번 게시물이 삭제되었습니다.", id);
 
