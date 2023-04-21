@@ -1,25 +1,12 @@
 package com.KoreaIT.jave.WD;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import com.KoreaIT.jave.WD.dto.Article;
-import com.KoreaIT.jave.WD.dto.Member;
 
 import WD.controller.ArticleController;
 import WD.controller.Controller;
 import WD.controller.MemberController;
 
 public class App {
-	private List<Article> articles;
-	private List<Member> members;
-
-	public App() {
-		articles = new ArrayList<>();
-		members = new ArrayList<>();
-
-	}
 
 	public void run() {
 
@@ -27,8 +14,8 @@ public class App {
 
 		Scanner sc = new Scanner(System.in);
 
-		MemberController memberController = new MemberController(members, sc);
-		ArticleController articleController = new ArticleController(articles, sc);
+		MemberController memberController = new MemberController(sc);
+		ArticleController articleController = new ArticleController(sc);
 
 		articleController.makeTestData();
 		memberController.makeTestData();
