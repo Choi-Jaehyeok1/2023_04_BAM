@@ -1,6 +1,5 @@
 package WD.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,32 +72,14 @@ public class ArticleController extends Controller {
 
 	private void showList() {
 
-		if (articles.size() == 0) {
-			System.out.println("존재하는 게시물이 없습니다.");
-			return;
-		}
-
-		List<Article> printArticles = articles;
 
 		String serchKeyword = cmd.substring("article list".length()).trim();
+		
+		List<Article> printArticles = articleService.getArticle(serchKeyword);
 
-		if (serchKeyword.length() > 0) {
-
-			printArticles = new ArrayList<>();
-
-			for (Article article : articles) {
-
-				if (article.title.contains(serchKeyword)) {
-					printArticles.add(article);
-					break;
-				}
-			}
-
-			if (printArticles.size() == 0) {
-				System.out.println("검색어가 없습니다.");
-				return;
-			}
-
+		if (printArticles.size() == 0) {
+			System.out.println("존재하는 게시물이 없습니다.");
+			return;
 		}
 
 		System.out.printf("== 게시물 리스트 ==\n");
@@ -111,6 +92,10 @@ public class ArticleController extends Controller {
 
 	}
 
+	
+	
+	
+	
 	private void showDetail() {
 
 		String[] cmdBits = cmd.split(" ");
@@ -175,7 +160,7 @@ public class ArticleController extends Controller {
 		System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
 
 	}
-
+	
 	private void doDelete() {
 
 		String[] cmdBits = cmd.split(" ");
@@ -199,10 +184,14 @@ public class ArticleController extends Controller {
 			return;
 		}
 
+		
+		
+		
 		articleService.remove(foundArticle);
 		System.out.printf("%d번 게시물이 삭제되었습니다.", id);
 
 	}
+
 	
 	public void makeTestData() {
 

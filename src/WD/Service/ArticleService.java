@@ -1,5 +1,7 @@
 package WD.Service;
 
+import java.util.List;
+
 import com.KoreaIT.jave.WD.dto.Article;
 
 import WD.dao.ArticleDao;
@@ -21,18 +23,15 @@ public class ArticleService {
 		
 	}
 	
-	
-	
-	
-	
-	
+	public List<Article> getArticle(String SearchKeyword) {
+
+		return articleDao.getArticles(SearchKeyword);
+
+	}
 	
 	public void remove(Article foundArticle) {
 		articleDao.remove(foundArticle);
 	}
-	
-	
-	
 	
 	
 	public Article getArticleById(int id) {
@@ -40,12 +39,9 @@ public class ArticleService {
 		return articleDao.getArticleById(id);
 
 	}
-	
-	
+
 	
 	public void makeTestData() {
-
-		System.out.println("테스트용 게시물 데이터 5개 생성");
 		
 		articleDao.makeTestData();
 

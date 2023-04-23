@@ -15,6 +15,27 @@ public class ArticleDao extends dao {
 		this.lastArticleId = 0;
 	}
 
+	public List<Article> getArticles(String searchKeyword) {
+		if (searchKeyword.length() > 0) {
+			System.out.println("검색어 : " + searchKeyword);
+
+			List<Article> printArticles = new ArrayList<>();
+
+			for (Article article : articles) {
+				if (article.title.contains(searchKeyword)) {
+					printArticles.add(article);
+				}
+			}
+			return printArticles;
+		}
+
+		return articles;
+	}
+	
+	
+	
+	
+	
 	public int setArticleId() {
 		int id = lastArticleId + 1;
 		lastArticleId = id;
@@ -32,12 +53,6 @@ public class ArticleDao extends dao {
 	public void remove(Article foundArticle) {
 		remove(foundArticle);
 	}
-	
-	
-	
-	
-	
-	
 	
 	public Article getArticleById(int id) {
 		
