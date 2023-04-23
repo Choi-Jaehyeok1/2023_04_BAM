@@ -8,17 +8,9 @@ import com.KoreaIT.jave.WD.util.Util;
 
 public class MemberDao extends dao {
 	private List<Member> members;
-	private int lastMemberId;
 
 	public MemberDao() {
 		this.members = new ArrayList<>();
-		this.lastMemberId = 0;
-	}
-
-	public int setMemberId() {
-		int id = lastMemberId + 1;
-		lastMemberId = id;
-		return id;
 	}
 
 	public void add(Member member) {
@@ -47,13 +39,11 @@ public class MemberDao extends dao {
 	public void makeTestData() {
 		for (int i = 1; i <= 3; i++) {
 
-			int id = setMemberId();
-
 			String loginId = "test" + i;
 			String loginPw = "test" + i;
 			String name = "사용자" + i;
 
-			Member member = new Member(id, Util.getDateTime(), loginId, loginPw, name);
+			Member member = new Member(setLastId(), Util.getDateTime(), loginId, loginPw, name);
 			members.add(member);
 		}
 	}

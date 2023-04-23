@@ -13,7 +13,7 @@ public class MemberService {
 	}
 
 	public int setMemberId() {
-		return memberDao.setMemberId();
+		return memberDao.setLastId();
 	}
 
 	public void add(Member member) {

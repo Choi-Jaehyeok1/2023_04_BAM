@@ -53,7 +53,7 @@ public class ArticleController extends Controller {
 
 	private void doWrite() {
 
-		int id = articleService.setArticleId();
+		int id = articleService.setLastId();
 		
 		System.out.printf("== 게시물 작성 ==\n");
 		String regDate = Util.getDateTime();
