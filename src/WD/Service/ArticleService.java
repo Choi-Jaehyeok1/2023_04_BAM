@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.KoreaIT.jave.WD.dto.Article;
 
+import WD.Container.Container;
 import WD.dao.ArticleDao;
 
 public class ArticleService {
@@ -11,7 +12,7 @@ public class ArticleService {
 	private ArticleDao articleDao;
 	
 	public ArticleService() {
-		this.articleDao = new ArticleDao();
+		this.articleDao = Container.articleDao;
 	}
 
 	public int setLastId() {

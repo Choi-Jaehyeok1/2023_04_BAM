@@ -2,6 +2,7 @@ package WD.Service;
 
 import com.KoreaIT.jave.WD.dto.Member;
 
+import WD.Container.Container;
 import WD.dao.MemberDao;
 
 public class MemberService {
@@ -9,7 +10,7 @@ public class MemberService {
 	private MemberDao memberDao;
 
 	public MemberService() {
-		this.memberDao = new MemberDao();
+		this.memberDao = Container.memberDao;
 	}
 
 	public int setMemberId() {
@@ -29,10 +30,24 @@ public class MemberService {
 
 		return memberDao.getMemberById(loginId);
 	}
+	
+	
+	public String getWriterName(int logindId) {
+		return memberDao.getWriterName(logindId);
+	}
+	
+	
+	
 
 	public void makeTestData() {
 
 		memberDao.makeTestData();
 
 	}
+	
+	
+	
+	
+	
+	
 }

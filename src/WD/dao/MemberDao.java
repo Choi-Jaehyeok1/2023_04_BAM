@@ -35,6 +35,16 @@ public class MemberDao extends dao {
 		}
 		return true;
 	}
+	
+	public String getWriterName(int memberId) {
+		
+		for (Member member : members) {
+			if (memberId == member.id) {
+				return member.name;
+			}
+		}
+		return null;
+	}
 
 	public void makeTestData() {
 		for (int i = 1; i <= 3; i++) {

@@ -6,17 +6,21 @@ import java.util.Scanner;
 import com.KoreaIT.jave.WD.dto.Article;
 import com.KoreaIT.jave.WD.util.Util;
 
+import WD.Container.Container;
 import WD.Service.ArticleService;
+import WD.Service.MemberService;
 
 public class ArticleController extends Controller {
 
 	private Scanner sc;
 	private String cmd;
 	private ArticleService articleService;
+	private MemberService memberService;
 
 	public ArticleController(Scanner sc) {
+		this.articleService = Container.articleService;
+		this.memberService = Container.memberService;
 		this.sc = sc;
-		this.articleService = new ArticleService();
 	}
 
 	public void doAction(String cmd, String Keyword) {
@@ -86,8 +90,13 @@ public class ArticleController extends Controller {
 		System.out.println("번호	|	제목	|	등록날짜	|	등록자");
 		for (int i = printArticles.size() - 1; i >= 0; i--) {
 			Article article = printArticles.get(i);
-			System.out.printf("%d	|	%s	|	%s	|	%s	\n", article.id, article.title, article.regDate,
-					article.loginidId);
+			
+			
+			String writername = memberService.getWriterName(article.loginidId);
+			
+			
+			System.out.printf("%d	|	%s	|	%s	|	%d	\n", article.id, article.title, article.regDate,
+					writername);
 		}
 
 	}
@@ -113,13 +122,15 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.", id);
 			return;
 		}
+		
+		String writerName = memberService.getWriterName(foundArticle.loginidId);
 
 		System.out.printf("== 상세 게시물 ==\n");
 		System.out.printf("번 호  : %d\n", foundArticle.id);
 		System.out.printf("작성일 : %s\n", foundArticle.regDate);
 		System.out.printf("제 목  : %s\n", foundArticle.title);
 		System.out.printf("내 용  : %s\n", foundArticle.body);
-		System.out.printf("작성자 : %d\n", foundArticle.loginidId);
+		System.out.printf("작성자 : %s\n", writerName);
 		System.out.printf("==== E N D ====\n");
 
 	}
